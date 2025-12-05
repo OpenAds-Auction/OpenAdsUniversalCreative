@@ -55,9 +55,9 @@ export function newNativeTrackerManager(win) {
 
   function fireTracker(adId, action) {
     if (adId === '') {
-      console.warn('Prebid tracking event was missing \'adId\'.  Was adId macro set in the HTML attribute ' + AD_DATA_ADID_ATTRIBUTE + 'on the ad\'s anchor element');
+      console.warn('OpenAds tracking event was missing \'adId\'.  Was adId macro set in the HTML attribute ' + AD_DATA_ADID_ATTRIBUTE + 'on the ad\'s anchor element');
     } else {
-      let message = { message: 'Prebid Native', adId: adId };
+      let message = { message: 'OpenAds Native', adId: adId };
 
       // fires click trackers when called via link
       if (action === 'click') {

@@ -115,14 +115,14 @@ export function transformAuctionTargetingData(tagData) {
   // this map object translates the Prebid.js auction keys to their equivalent Prebid Universal Creative keys
   // when the publisher uses their adserver's generic macro that provides all targeting keys (ie tagData.targetingMap), we need to convert the keys
   const auctionKeyMap = {
-    hb_adid: 'adId',
-    hb_cache_host: 'cacheHost',
-    hb_cache_path: 'cachePath',
-    hb_cache_id: 'uuid',
-    hb_format: 'mediaType',
-    hb_env: 'env',
-    hb_size: 'size',
-    hb_pb: 'hbPb'
+    oa_adid: 'adId',
+    oa_cache_host: 'cacheHost',
+    oa_cache_path: 'cachePath',
+    oa_cache_id: 'uuid',
+    oa_format: 'mediaType',
+    oa_env: 'env',
+    oa_size: 'size',
+    oa_pb: 'hbPb'
   };
 
   /**

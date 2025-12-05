@@ -61,7 +61,7 @@ describe('nativeTrackerManager', function () {
       let postMessageContents = mockWin.parent.postMessage.args[0][0];
       let rawPostMessage = JSON.parse(postMessageContents);
 
-      expect(rawPostMessage.message).to.exist.and.to.equal("Prebid Native");
+      expect(rawPostMessage.message).to.exist.and.to.equal("OpenAds Native");
       expect(rawPostMessage.adId).to.exist.and.to.equal("ad123");
       expect(rawPostMessage.action).to.not.exist;
       expect(trimPort(postMessageTargetDomain)).to.equal(tagData.pubUrl);
@@ -89,7 +89,7 @@ describe('nativeTrackerManager', function () {
       let postMessageContents = mockWin.parent.postMessage.args[0][0];
       let rawPostMessage = JSON.parse(postMessageContents);
 
-      expect(rawPostMessage.message).to.exist.and.to.equal("Prebid Native");
+      expect(rawPostMessage.message).to.exist.and.to.equal("OpenAds Native");
       expect(rawPostMessage.adId).to.exist.and.to.equal("ad123");
       expect(rawPostMessage.action).to.exist.and.to.equal('click');
       expect(trimPort(postMessageTargetDomain)).to.equal(tagData.pubUrl);

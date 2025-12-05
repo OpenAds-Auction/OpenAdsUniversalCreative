@@ -34,7 +34,7 @@ export function newNativeRenderManager(win, mkMessenger = prebidMessenger, asset
                 });
             } else {
                 signalResult(null, {reason: 'missingDocOrAdid'});
-                console.warn('Prebid Native Tag object was missing \'adId\'.');
+                console.warn('OpenAds Native Tag object was missing \'adId\'.');
             }
         } catch (e) {
             signalResult(nativeTag && nativeTag.adId, {reason: 'exception', message: e.message});
