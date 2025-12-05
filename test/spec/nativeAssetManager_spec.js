@@ -625,7 +625,7 @@ describe('nativeAssetManager', () => {
           .map(([msg]) => JSON.parse(msg))
           .find((msg) => msg.action === 'resizeNativeHeight')
       }
-      
+
       it('should not request width resize if width is 1', () => {
         sandbox.stub(document.body, 'clientWidth').get(() => 1);
         const nativeAssetManager = makeManager();
