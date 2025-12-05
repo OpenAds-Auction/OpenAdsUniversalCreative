@@ -24,7 +24,6 @@ const coopSyncParam = parseQueryParam('coop_sync', window.location.search);
 const COOP_SYNC = !coopSyncParam || coopSyncParam === 'true' || !!parseInt(coopSyncParam);
 const GDPR = sanitizeGdpr(parseInt(parseQueryParam('gdpr', window.location.search), 10));
 const GDPR_CONSENT = sanitizeGdprConsent(parseQueryParam('gdpr_consent', window.location.search));
-const ACCOUNT = parseQueryParam('account', window.location.search);
 
 /**
  * checks to make sure URL is valid. Regex from https://validatejs.org/#validators-url, https://gist.github.com/dperini/729294
@@ -268,7 +267,6 @@ function getStringifiedData(endPointArgs) {
     }
   };
   if(BIDDER_ARGS) data.bidders = BIDDER_ARGS;
-  if(ACCOUNT) data.account = ACCOUNT;
 
   return JSON.stringify(data);
 }

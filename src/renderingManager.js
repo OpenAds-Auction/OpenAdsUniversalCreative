@@ -63,7 +63,7 @@ export function renderCrossDomain(win, adId, pubAdServerDomain = '', pubUrl) {
 
     if (
       adObject.message &&
-      adObject.message === "Prebid Response" &&
+      adObject.message === "OpenAds Response" &&
       adObject.adId === adId
     ) {
       if (hasDynamicRenderer(adObject)) {
@@ -116,7 +116,7 @@ export function renderCrossDomain(win, adId, pubAdServerDomain = '', pubUrl) {
 
   function requestAdFromPrebid() {
     let message = {
-      message: 'Prebid Request',
+      message: 'OpenAds Request',
       adId: adId,
       adServerDomain: fullAdServerDomain
     }

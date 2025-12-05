@@ -1,7 +1,7 @@
 {
-    "name": "prebid-universal-creative",
-    "version": "1.18.0-pre",
-    "description": "Universal creative for Prebid apps",
+    "name": "openads-universal-creative",
+    "version": "1.17.2",
+    "description": "Universal creative for Openads apps",
     "main": "dist/creative.js",
     "scripts": {
         "test": "gulp test",
@@ -12,10 +12,10 @@
         "url": "git+https://github.com/prebid/prebid-universal-creative.git"
     },
     "keywords": [
-        "Prebid.js"
+        "Openads.js"
     ],
-    "globalVarName": "pbjs",
-    "author": "Prebid.org Contributors",
+    "globalVarName": "oajs",
+    "author": "OpenAds Contributors",
     "license": "Apache-2.0",
     "bugs": {
         "url": "https://github.com/prebid/prebid-universal-creative/issues"
