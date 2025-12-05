@@ -112,7 +112,7 @@ describe('renderingManager', function() {
     function mockPrebidResponse(msg)  {
       mockWin.postMessage({
         origin: ORIGIN,
-        message: JSON.stringify(Object.assign({ message: 'Prebid Response' }, msg))
+        message: JSON.stringify(Object.assign({ message: 'OpenAds Response' }, msg))
       });
     }
 
@@ -145,7 +145,7 @@ describe('renderingManager', function() {
 
       function expectEventMessage(expected) {
         const actual = JSON.parse(mockWin.parent.postMessage.args[1][0]);
-        sinon.assert.match(actual, Object.assign({message: 'Prebid Event'}, expected));
+        sinon.assert.match(actual, Object.assign({message: 'OpenAds Event'}, expected));
       }
 
       describe('AD_RENDER_FAILED', () => {

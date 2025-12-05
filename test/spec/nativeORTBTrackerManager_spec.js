@@ -40,7 +40,7 @@ describe('test firing native trackers', function () {
     fireNativeImpressionTrackers("abc123", sendMessage);
 
     expect(sendMessage.getCall(0).args[0]).to.deep.equal({
-      message: 'Prebid Native',
+      message: 'OpenAds Native',
       action: 'fireNativeImpressionTrackers',
       adId: 'abc123'
     })
@@ -50,7 +50,7 @@ describe('test firing native trackers', function () {
     let adId = "abc123";
     addNativeClickTrackers(adId, sendMessage);
     expect(sendMessage.getCall(0).args[0]).to.deep.equal({
-      message: "Prebid Native",
+      message: "OpenAds Native",
       action: 'click',
       adId: 'abc123',
       assetId: 1

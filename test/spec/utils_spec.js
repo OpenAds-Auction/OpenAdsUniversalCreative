@@ -24,14 +24,14 @@ describe('utils', function () {
     it('should transform targeting map', function () {
       let ucTagData = {
         targetingMap: {
-          hb_adid: ['123'],
-          hb_cache_host: ['example.com'],
-          hb_cache_path: ['/path'],
-          hb_cache_id: ['123'],
-          hb_size: ['300x250'],
-          hb_format: ['banner'],
-          hb_env: ['mobile-app'],
-          hb_pb: ['10.00']
+          oa_adid: ['123'],
+          oa_cache_host: ['example.com'],
+          oa_cache_path: ['/path'],
+          oa_cache_id: ['123'],
+          oa_size: ['300x250'],
+          oa_format: ['banner'],
+          oa_env: ['mobile-app'],
+          oa_pb: ['10.00']
         }
       };
       let auctionData = utils.transformAuctionTargetingData(ucTagData);
@@ -50,9 +50,9 @@ describe('utils', function () {
     it('should ignore keys set to empty strings', function () {
       let ucTagData = {
         targetingMap: {
-          hb_adid: ['123abc'],
-          hb_format: ['banner'],
-          hb_size: ['300x250']
+          oa_adid: ['123abc'],
+          oa_format: ['banner'],
+          oa_size: ['300x250']
         },
         adServerDomain: '',
         pubUrl: 'http://www.test.com',
@@ -70,34 +70,34 @@ describe('utils', function () {
     it('should preserve extra keys found in targetingMap and transform known keys', function () {
       let ucTagData = {
         targetingMap: {
-          hb_adid: ['123abc'],
-          hb_adid_appnexus: ['123abc'],
-          hb_format: ['banner'],
-          hb_size: ['300x250'],
-          hb_bidder: ['appnexus']
+          oa_adid: ['123abc'],
+          oa_adid_appnexus: ['123abc'],
+          oa_format: ['banner'],
+          oa_size: ['300x250'],
+          oa_bidder: ['appnexus']
         }
       };
       let auctionData = utils.transformAuctionTargetingData(ucTagData);
       expect(auctionData).to.deep.equal({
         adId: '123abc',
-        hb_adid_appnexus: '123abc',
+        oa_adid_appnexus: '123abc',
         mediaType: 'banner',
         size: '300x250',
-        hb_bidder: 'appnexus'
+        oa_bidder: 'appnexus'
       });
     });
 
     it('should transform data from targetingKeywords param properly', function() {
       let ucTagData = {
-        targetingKeywords: "hb_adid:123abc,hb_adid_appnexus:123abc,hb_format:banner,hb_size:300x250,hb_bidder:appnexus,test"
+        targetingKeywords: "oa_adid:123abc,oa_adid_appnexus:123abc,oa_format:banner,oa_size:300x250,oa_bidder:appnexus,test"
       };
       let auctionData = utils.transformAuctionTargetingData(ucTagData);
       expect(auctionData).to.deep.equal({
         adId: '123abc',
-        hb_adid_appnexus: '123abc',
+        oa_adid_appnexus: '123abc',
         mediaType: 'banner',
         size: '300x250',
-        hb_bidder: 'appnexus'
+        oa_bidder: 'appnexus'
       });
 
       ucTagData = {
