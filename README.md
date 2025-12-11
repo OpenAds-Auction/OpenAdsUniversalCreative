@@ -1,6 +1,6 @@
-# Prebid Universal Creative
+# OpenAds Universal Creative
 
-Prebid Universal Creative is a javascript api to render multiple formats. This file is inserted into the prebid creative as a placeholder for the winning prebid creative. It should support the following formats:
+OpenAds Universal Creative is a javascript api to render multiple formats. This file is inserted into the openads creative as a placeholder for the winning openads creative. It should support the following formats:
  - Banner
  - Outstream Video
  - Mobile
@@ -15,42 +15,19 @@ You can find a detailed explanations on the [Prebid Universal Creative](https://
 
 **Generic template:**
 ```html
-<script src = "https://cdn.jsdelivr.net/npm/prebid-universal-creative@latest/dist/PUCFILE"></script>
+<script src = "https://openads-cdn.adsrvr.org/openads-universal-creative/build/latest/PUCFILE"></script>
 ```
 
 **Replace "PUCFILE" with:**
-- **Prebid.js**: `%%PATTERN:hb_format%%.js` - This dynamically loads the appropriate creative file based on the ad format
-- **Prebid Mobile**: `mobile.js` or `creative.js` - the latter is recommended so that the creative could be reused for both desktop and mobile.
+- **OpenAds.js**: `%%PATTERN:hb_format%%.js` - This dynamically loads the appropriate creative file based on the ad format
 
 > **Important Note about File Compatibility:**
-> - Both `creative.js` and `mobile.js` work for mobile implementations
-> - `creative.js` is more general and **will work for both desktop and mobile**
-> - `banner.js`, `native.js`, `video.js` - contain **only desktop creative rendering code** and do not support mobile
+> - `creative.js` is more general and **will work for desktop**
+> - `banner.js`, `native.js`, `video.js` - contain **only desktop creative rendering code**
 
-**Example for Prebid Mobile:**
+**Example for OpenAds.js (Desktop/Web):**
 ```html
-<script src = "https://cdn.jsdelivr.net/npm/prebid-universal-creative@latest/dist/creative.js"></script>
-<script>
-  var ucTagData = {};
-  ucTagData.adServerDomain = "";
-  ucTagData.pubUrl = "%%PATTERN:url%%";
-  ucTagData.targetingMap = %%PATTERN:TARGETINGMAP%%;
-  ucTagData.hbPb = "%%PATTERN:hb_pb%%";
-  ucTagData.hbFormat = "%%PATTERN:hb_format%%";
-  ucTagData.adId = "%%PATTERN:hb_adid%%";
-  ucTagData.requestAllAssets = true;
-
-  try {
-    ucTag.renderAd(document, ucTagData);
-  } catch (e) {
-    console.log(e);
-  }
-</script>
-```
-
-**Example for Prebid.js (Desktop/Web):**
-```html
-<script src = "https://cdn.jsdelivr.net/npm/prebid-universal-creative@latest/dist/%%PATTERN:hb_format%%.js"></script>
+<script src = "https://openads-cdn.adsrvr.org/openads-universal-creative/build/latest/%%PATTERN:hb_format%%.js"></script>
 <script>
   var ucTagData = {};
   ucTagData.adServerDomain = "";
@@ -77,7 +54,7 @@ Creative created like described above will work for the following formats:
 - native
 - video (outstream video)
 
-Universal creative library is loaded with `%%PATTERN:hb_format%%.js` path. For each `hb_format` targeting key-value, separate `.js` library will be loaded.  Which means that the same creative code can be reused for any format, however unfortunately not on mobile, because `mobile` is not one of the values that `hb_format` keyword could take.
+Universal creative library is loaded with `%%PATTERN:hb_format%%.js` path. For each `hb_format` targeting key-value, separate `.js` library will be loaded.  Which means that the same creative code can be reused for any format.
 
 > **important:** If you’re using the `Send All Bids` scenario (where every bidder has a separate order), the creative and targeting will be different from the example shown here. See [Send All Bids](https://docs.prebid.org/adops/send-all-vs-top-price.html#send-all-bids) for details and an example below.
 
@@ -86,7 +63,7 @@ Universal creative library is loaded with `%%PATTERN:hb_format%%.js` path. For e
 For the "Send All Bids" scenario, use this template:
 
 ```html
-<script src = "https://cdn.jsdelivr.net/npm/prebid-universal-creative@latest/dist/PUCFILE"></script>
+<script src = "https://openads-cdn.adsrvr.org/openads-universal-creative/build/latest/PUCFILE"></script>
 <script>
   var ucTagData = {};
   ucTagData.adServerDomain = "";
@@ -117,8 +94,8 @@ Replace "PUCFILE" as described above. Note the use of `BIDDERCODE` suffix in the
 
 ## Install
 
-    $ git clone https://github.com/prebid/prebid-universal-creative.git
-    $ cd prebid-universal-creative
+    $ git clone https://github.com/OpenAds-Auction/OpenAdsUniversalCreative.git
+    $ cd OpenAdsUniversalCreative
     $ npm install
 
 *Note:* You need to have `NodeJS` 8.9.x or greater installed.
@@ -143,8 +120,6 @@ Starts a web server at `http://localhost:9999` serving from the project root and
 
 ## Build for production
 
-We publish `prebid-universal-creative` as npm package on npmjs.com
-
 When we run `npm publish`, prepublish script of package.json is executed. Scripts given in prepublish Run BEFORE the package is packed and published. See https://docs.npmjs.com/misc/scripts
 
 `gulp build` is executed before publish. It creates two files in dist directory
@@ -155,7 +130,7 @@ When we run `npm publish`, prepublish script of package.json is executed. Script
 + `./dist/native.js` - Minified native.js source code (responsible for rendering native ads)
 + `./dist/video.js` - Minified video.js source code (responsible for rendering outstream video ads)
 
-[jsDelivr](https://www.jsdelivr.com/) – Open Source CDN is used to serve creative.js file.
+[OpenAds CDN](https://openads-cdn.adsrvr.org/openads-universal-creative/build/latest/creative.js) – OpenAds CDN is used to serve creative.js file.
 
 ## Test
 
@@ -191,6 +166,6 @@ We like to test a lot before releasing newer versions.
 Found a bug? Great!
 This project is in its infancy, and many things can be improved.
 
-Report bugs, request features, and suggest improvements [on Github](https://github.com/prebid/prebid-universal-creative/issues).
+Report bugs, request features, and suggest improvements [on Github](https://github.com/OpenAds-Auction/OpenAdsUniversalCreative/issues).
 
-Or better yet, [open a pull request](https://github.com/prebid/prebid-universal-creative/compare) with the changes you'd like to see.
+Or better yet, [open a pull request](https://github.com/OpenAds-Auction/OpenAdsUniversalCreative/compare) with the changes you'd like to see.
