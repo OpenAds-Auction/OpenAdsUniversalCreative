@@ -1,5 +1,5 @@
 import {parseUrl} from './utils.js';
-export const PREBID_EVENT = 'Prebid Event';
+export const PREBID_EVENT = 'OpenAds Event';
 export const AD_RENDER_SUCCEEDED = 'adRenderSucceeded';
 export const AD_RENDER_FAILED = 'adRenderFailed';
 

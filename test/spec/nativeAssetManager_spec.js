@@ -11,25 +11,25 @@ const ORIGIN = 'https://origin.com'
 const AD_ID = 'abc123';
 const AD_ID2 = 'def456';
 const NATIVE_KEYS = {
-  title: 'hb_native_title',
-  body: 'hb_native_body',
-  body2: 'hb_native_body2',
-  privacyLink: 'hb_native_privacy',
-  privacyIcon: 'hb_native_privicon',
-  sponsoredBy: 'hb_native_brand',
-  image: 'hb_native_image',
-  icon: 'hb_native_icon',
-  clickUrl: 'hb_native_linkurl',
-  displayUrl: 'hb_native_displayurl',
-  cta: 'hb_native_cta',
-  rating: 'hb_native_rating',
-  address: 'hb_native_address',
-  downloads: 'hb_native_downloads',
-  likes: 'hb_native_likes',
-  phone: 'hb_native_phone',
-  price: 'hb_native_price',
-  salePrice: 'hb_native_saleprice',
-  rendererUrl: 'hb_renderer_url',
+  title: 'oa_native_title',
+  body: 'oa_native_body',
+  body2: 'oa_native_body2',
+  privacyLink: 'oa_native_privacy',
+  privacyIcon: 'oa_native_privicon',
+  sponsoredBy: 'oa_native_brand',
+  image: 'oa_native_image',
+  icon: 'oa_native_icon',
+  clickUrl: 'oa_native_linkurl',
+  displayUrl: 'oa_native_displayurl',
+  cta: 'oa_native_cta',
+  rating: 'oa_native_rating',
+  address: 'oa_native_address',
+  downloads: 'oa_native_downloads',
+  likes: 'oa_native_likes',
+  phone: 'oa_native_phone',
+  price: 'oa_native_price',
+  salePrice: 'oa_native_saleprice',
+  rendererUrl: 'oa_renderer_url',
 };
 
 const mockDocument = {
@@ -80,7 +80,7 @@ function createAltAllResponder(assets,url,template) {
 
 // creates mock html markup responsse from renderUrl
 function generateRenderer(assets) {
-      let newhtml = '<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"##hb_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##hb_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##hb_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##hb_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>';
+      let newhtml = '<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"##oa_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##oa_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##oa_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##oa_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>';
 
       (assets || []).forEach(asset => {
           const searchString = '##'+`${NATIVE_KEYS[asset.key]}`+'##';
@@ -138,9 +138,9 @@ describe('nativeAssetManager', () => {
 
     it('replaces native placeholders with their asset values', () => {
       win.document.body.innerHTML = `
-        <h1>hb_native_title</h1>
-        <p>hb_native_body:${AD_ID}</p>
-        <a href="hb_native_linkurl:${AD_ID}">Click Here</a>
+        <h1>oa_native_title</h1>
+        <p>oa_native_body:${AD_ID}</p>
+        <a href="oa_native_linkurl:${AD_ID}">Click Here</a>
       `;
       win.addEventListener = createResponder([
         { key: 'body', value: 'new value' },
@@ -155,13 +155,13 @@ describe('nativeAssetManager', () => {
         <a href="http://www.example.com">Click Here</a>
       `);
       // title was not a requested asset so this should stay as is
-      expect(win.document.body.innerHTML).to.include('<h1>hb_native_title</h1>');
+      expect(win.document.body.innerHTML).to.include('<h1>oa_native_title</h1>');
     });
 
     it('replaces all occurrences of the placeholder if it appears more than once', () => {
       win.document.body.innerHTML = `
-        <a href="hb_native_linkurl:${AD_ID}">Click Here</a>
-        <a href="hb_native_linkurl:${AD_ID}">Or Here</a>
+        <a href="oa_native_linkurl:${AD_ID}">Click Here</a>
+        <a href="oa_native_linkurl:${AD_ID}">Or Here</a>
       `;
       win.addEventListener = createResponder([{ key: 'clickUrl', value: 'http://www.example.com' }]);
 
@@ -177,7 +177,7 @@ describe('nativeAssetManager', () => {
     });
 
     it('attaches and removes message listeners', (done) => {
-      win.document.body.innerHTML = `<h1>hb_native_title:${AD_ID}</h1>`;
+      win.document.body.innerHTML = `<h1>oa_native_title:${AD_ID}</h1>`;
       const responder = createResponder();
       win.addEventListener = function (evType, listener) {
         setTimeout(() => responder(evType, listener), 0);
@@ -194,7 +194,7 @@ describe('nativeAssetManager', () => {
     it('replaces native placeholders with their asset values from adTemplate', () => {
       const html = `<script>
                 let nativeTag = {};
-                nativeTag.adTemplate = "<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"##hb_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##hb_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##hb_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##hb_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>";
+                nativeTag.adTemplate = "<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"##oa_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##oa_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##oa_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##oa_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>";
                 nativeTag.pubUrl = "https://www.url.com";
                 nativeTag.adId = "`+AD_ID+`";
                 nativeTag.requestAllAssets = true;
@@ -203,7 +203,7 @@ describe('nativeAssetManager', () => {
       win.pbNativeData = {
         pubUrl : 'https://www.url.com',
         adId : AD_ID,
-        adTemplate : '<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"##hb_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##hb_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##hb_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##hb_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>'
+        adTemplate : '<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"##oa_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##oa_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##oa_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##oa_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>'
       };
 
       win.document.body.innerHTML = html;
@@ -376,14 +376,14 @@ describe('nativeAssetManager', () => {
     </div>
     <div class="content">
       <h1>
-        <a href="##hb_native_linkurl##" target="_blank" class="pb-click">##hb_native_asset_id_1##</a>
+        <a href="##oa_native_linkurl##" target="_blank" class="pb-click">##oa_native_asset_id_1##</a>
       </h1>
-      <p>##hb_native_asset_id_2##</p>
+      <p>##oa_native_asset_id_2##</p>
       <div class="attribution">
-        <img class="pb-icon" src="##hb_native_asset_id_3##" alt="icon" height="150" width="50">
+        <img class="pb-icon" src="##oa_native_asset_id_3##" alt="icon" height="150" width="50">
       </div>
-      <h2>##hb_native_asset_id_1##</h2>
-      <p>##hb_native_asset_id_4##</p>
+      <h2>##oa_native_asset_id_1##</h2>
+      <p>##oa_native_asset_id_4##</p>
     </div>
   </div>
   `;
@@ -438,16 +438,16 @@ describe('nativeAssetManager', () => {
       );
       expect(win.document.body.innerHTML).to.include(`<p>Body content</p>`);
 
-      // ##hb_native_asset_id_4## was not returned in the response, it should
+      // ##oa_native_asset_id_4## was not returned in the response, it should
       // be transformed into an empty string
-      expect(win.document.body.innerHTML).to.not.include(`##hb_native_asset_id_4##`);
+      expect(win.document.body.innerHTML).to.not.include(`##oa_native_asset_id_4##`);
 
       // test that we are replacing ALL asset occurrences
       expect(([...win.document.body.innerHTML.match(/new value/g)] || []).length, "expected 2 occurrences of \"new value\"").to.equal(2);
     });
 
     it('no placeholders found but requests all assets flag set - adTemplate', () => {
-      const template = '<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"##hb_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##hb_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##hb_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##hb_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>';
+      const template = '<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"##oa_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##oa_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##oa_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##oa_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>';
       win.pbNativeData = {
         pubUrl : 'https://www.url.com',
         adId : AD_ID,
@@ -472,11 +472,11 @@ describe('nativeAssetManager', () => {
     });
 
     it('no placeholders found but assets defined in nativeTag - adTemplate', () => {
-      const template = '<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"##hb_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##hb_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##hb_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##hb_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>';
+      const template = '<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"##oa_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##oa_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##oa_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##oa_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>';
       win.pbNativeData = {
         pubUrl : 'https://www.url.com',
         adId : AD_ID,
-        assetsToReplace: ['image','hb_native_body','clickUrl','hb_native_title']
+        assetsToReplace: ['image','oa_native_body','clickUrl','oa_native_title']
       };
 
       win.document.body.innerHTML = '';
@@ -514,9 +514,9 @@ describe('nativeAssetManager', () => {
 
     it('replace mobile native placeholder with their values', function() {
       win.document.body.innerHTML = `
-        <h1>hb_native_cta</h1>
-        <p>hb_native_body</p>
-        <a href="hb_native_linkurl">Click Here</a>
+        <h1>oa_native_cta</h1>
+        <p>oa_native_body</p>
+        <a href="oa_native_linkurl">Click Here</a>
       `;
 
       let cb = sinon.spy();
@@ -587,7 +587,7 @@ describe('nativeAssetManager', () => {
       beforeEach(() => {
         const html = `<script>
                   let nativeTag = {};
-                nativeTag.adTemplate = "<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"##hb_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##hb_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##hb_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##hb_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>";
+                nativeTag.adTemplate = "<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"##oa_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##oa_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##oa_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##oa_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>";
                 nativeTag.pubUrl = "https://www.url.com";
                 nativeTag.adId = "`+AD_ID+`";
                 nativeTag.requestAllAssets = true;
@@ -596,7 +596,7 @@ describe('nativeAssetManager', () => {
         win.pbNativeData = {
           pubUrl : 'https://www.url.com',
           adId : AD_ID,
-          adTemplate : '<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"##hb_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##hb_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##hb_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##hb_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>'
+          adTemplate : '<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"##oa_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##oa_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##oa_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##oa_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>'
         };
 
         win.document.body.innerHTML = html;
@@ -692,7 +692,7 @@ describe('nativeAssetManager', () => {
                 let mgr;
                 beforeEach(() => {
                     win.pbNativeData = pbData;
-                    win.document.body.innerHTML = '##hb_native_title##';
+                    win.document.body.innerHTML = '##oa_native_title##';
                     mgr = makeManager({}, mockMessenger);
                 });
 
@@ -732,7 +732,7 @@ describe('nativeAssetManager', () => {
     it("should remove %%CLICK_URL_UNESC%% if there's no variable set", () => {
       const html = `<script>
         let nativeTag = {};
-        nativeTag.adTemplate = "<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"%%CLICK_URL_UNESC%%##hb_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##hb_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##hb_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##hb_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>";
+        nativeTag.adTemplate = "<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"%%CLICK_URL_UNESC%%##oa_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##oa_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##oa_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##oa_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>";
         nativeTag.pubUrl = "https://www.url.com";
         nativeTag.adId = "`+AD_ID+`";
         nativeTag.requestAllAssets = true;
@@ -741,7 +741,7 @@ describe('nativeAssetManager', () => {
       win.pbNativeData = {
       pubUrl : 'https://www.url.com',
       adId : AD_ID,
-      adTemplate : '<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"%%CLICK_URL_UNESC%%##hb_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##hb_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##hb_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##hb_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>'
+      adTemplate : '<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"%%CLICK_URL_UNESC%%##oa_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##oa_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##oa_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##oa_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>'
       };
 
       win.document.body.innerHTML = html;
@@ -761,7 +761,7 @@ describe('nativeAssetManager', () => {
     it("should substitute %%CLICK_URL_UNESC%% with clickUrlUnesc value", () => {
       const html = `<script>
         let nativeTag = {};
-        nativeTag.adTemplate = "<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"%%CLICK_URL_UNESC%%##hb_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##hb_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##hb_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##hb_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>";
+        nativeTag.adTemplate = "<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"%%CLICK_URL_UNESC%%##oa_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##oa_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##oa_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##oa_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>";
         nativeTag.pubUrl = "https://www.url.com";
         nativeTag.adId = "`+AD_ID+`";
         nativeTag.requestAllAssets = true;
@@ -770,7 +770,7 @@ describe('nativeAssetManager', () => {
       win.pbNativeData = {
       pubUrl : 'https://www.url.com',
       adId : AD_ID,
-      adTemplate : '<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"%%CLICK_URL_UNESC%%##hb_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##hb_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##hb_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##hb_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>',
+      adTemplate : '<div class=\"sponsored-post\">\r\n  <div class=\"thumbnail\"><\/div>\r\n  <div class=\"content\">\r\n  <h1>\r\n    <a href=\"%%CLICK_URL_UNESC%%##oa_native_linkurl##\" target=\"_blank\" class=\"pb-click\">##oa_native_title##<\/a>\r\n   <\/h1>\r\n    <p>##oa_native_body##<\/p>\r\n    \t<div class=\"attribution\">\r\n                   \t<img class=\"pb-icon\" src=\"##oa_native_image##\" alt=\"icon\" height=\"150\" width=\"50\">\r\n \t\r\n           \t<\/div>\r\n\t<\/div>\r\n<\/div>',
       };
 
       win.document.body.innerHTML = html;

@@ -70,7 +70,7 @@ describe('nativeRenderManager', function () {
         const rdr = newNativeRenderManager(mockWin, mockMessenger, mockAssetMgr);
         rdr.renderNativeAd(mockWin.document, tagData);
         sinon.assert.match(recvMessages[0], {
-          message: 'Prebid Event',
+          message: 'OpenAds Event',
           adId: 'ad123',
           event: 'adRenderSucceeded',
         })
@@ -86,7 +86,7 @@ describe('nativeRenderManager', function () {
             }
           }));
           sinon.assert.match(recvMessages[0], {
-            message: 'Prebid Event',
+            message: 'OpenAds Event',
             adId: 'ad123',
             event: 'adRenderFailed',
             info: {
@@ -99,7 +99,7 @@ describe('nativeRenderManager', function () {
           const rdr = newNativeRenderManager(mockWin, mockMessenger);
           rdr.renderNativeAd(mockWin.document, {...tagData, adId: undefined});
           sinon.assert.match(recvMessages[0], {
-            message: 'Prebid Event',
+            message: 'OpenAds Event',
             event: 'adRenderFailed',
             info: {
               reason: 'missingDocOrAdid',
@@ -117,7 +117,7 @@ describe('nativeRenderManager', function () {
           const rdr = newNativeRenderManager(mockWin, mockMessenger, mockAssetMgr);
           rdr.renderNativeAd(mockWin.document, tagData);
           sinon.assert.match(recvMessages[0], {
-            message: 'Prebid Event',
+            message: 'OpenAds Event',
             event: 'adRenderFailed',
             info: {
               reason: 'exception',

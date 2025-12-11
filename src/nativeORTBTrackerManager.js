@@ -1,11 +1,11 @@
 import { loadScript, triggerPixel } from "./utils";
 
 const AD_ANCHOR_CLASS_NAME = 'pb-click';
-const ASSET_ID_ELEMENT_ATTRIBUTE = 'hb_native_asset_id';
+const ASSET_ID_ELEMENT_ATTRIBUTE = 'oa_native_asset_id';
 
 export function fireNativeImpressionTrackers(adId, sendMessage) {
     const message = {
-        message: 'Prebid Native',
+        message: 'OpenAds Native',
         action: 'fireNativeImpressionTrackers',
         adId
       };
@@ -14,7 +14,7 @@ export function fireNativeImpressionTrackers(adId, sendMessage) {
 
 export function addNativeClickTrackers(adId, sendMessage) {
     const message = {
-        message: 'Prebid Native',
+        message: 'OpenAds Native',
         action: 'click',
         adId
       };

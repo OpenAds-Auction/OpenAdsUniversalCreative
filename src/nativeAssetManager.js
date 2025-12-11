@@ -13,25 +13,25 @@ import {hasDynamicRenderer, runDynamicRenderer} from './dynamicRenderer.js';
  * https://github.com/prebid/Prebid.js/blob/8635c91942de9df4ec236672c39b19448545a812/src/constants.json#L67
  */
 const NATIVE_KEYS = {
-  title: 'hb_native_title',
-  body: 'hb_native_body',
-  body2: 'hb_native_body2',
-  privacyLink: 'hb_native_privacy',
-  privacyIcon: 'hb_native_privicon',
-  sponsoredBy: 'hb_native_brand',
-  image: 'hb_native_image',
-  icon: 'hb_native_icon',
-  clickUrl: 'hb_native_linkurl',
-  displayUrl: 'hb_native_displayurl',
-  cta: 'hb_native_cta',
-  rating: 'hb_native_rating',
-  address: 'hb_native_address',
-  downloads: 'hb_native_downloads',
-  likes: 'hb_native_likes',
-  phone: 'hb_native_phone',
-  price: 'hb_native_price',
-  salePrice: 'hb_native_saleprice',
-  rendererUrl: 'hb_renderer_url',
+  title: 'oa_native_title',
+  body: 'oa_native_body',
+  body2: 'oa_native_body2',
+  privacyLink: 'oa_native_privacy',
+  privacyIcon: 'oa_native_privicon',
+  sponsoredBy: 'oa_native_brand',
+  image: 'oa_native_image',
+  icon: 'oa_native_icon',
+  clickUrl: 'oa_native_linkurl',
+  displayUrl: 'oa_native_displayurl',
+  cta: 'oa_native_cta',
+  rating: 'oa_native_rating',
+  address: 'oa_native_address',
+  downloads: 'oa_native_downloads',
+  likes: 'oa_native_likes',
+  phone: 'oa_native_phone',
+  price: 'oa_native_price',
+  salePrice: 'oa_native_saleprice',
+  rendererUrl: 'oa_renderer_url',
 };
 
 // Asset type mapping as per Native IAB spec 1.2
@@ -203,7 +203,7 @@ export function newNativeAssetManager(win, nativeTag, mkMessenger = prebidMessen
 
     if (hasPbNativeData() && win.pbNativeData.hasOwnProperty('assetsToReplace')) {
         win.pbNativeData.assetsToReplace.forEach((asset) => {
-          const key = (asset.match(/hb_native_/i)) ? asset : NATIVE_KEYS[asset];
+          const key = (asset.match(/oa_native_/i)) ? asset : NATIVE_KEYS[asset];
           if (key) {placeholders.push(key);}
         });
     }
@@ -250,7 +250,7 @@ export function newNativeAssetManager(win, nativeTag, mkMessenger = prebidMessen
    */
   function requestAssets(adId, assets) {
     const message = {
-      message: 'Prebid Native',
+      message: 'OpenAds Native',
       action: 'assetRequest',
       adId,
       assets,
@@ -265,7 +265,7 @@ export function newNativeAssetManager(win, nativeTag, mkMessenger = prebidMessen
    */
   function requestAllAssets(adId) {
     const message = {
-      message: 'Prebid Native',
+      message: 'OpenAds Native',
       action: 'allAssetRequest',
       adId,
     };
@@ -277,7 +277,7 @@ export function newNativeAssetManager(win, nativeTag, mkMessenger = prebidMessen
    */
   function requestHeightResize(adId, height, width) {
     const message = {
-      message: 'Prebid Native',
+      message: 'OpenAds Native',
       action: 'resizeNativeHeight',
       adId,
       height,
@@ -459,20 +459,20 @@ export function newNativeAssetManager(win, nativeTag, mkMessenger = prebidMessen
     }
 
     ortb.assets.forEach(asset => {
-      html = html.replaceAll(`##hb_native_asset_id_${asset.id}##`, getAssetValue(asset));
+      html = html.replaceAll(`##oa_native_asset_id_${asset.id}##`, getAssetValue(asset));
       if (asset.link && asset.link.url) {
-        html = html.replaceAll(`##hb_native_asset_link_id_${asset.id}##`, asset.link.url);
+        html = html.replaceAll(`##oa_native_asset_link_id_${asset.id}##`, asset.link.url);
       }
     });
 
-    html = html.replaceAll(/##hb_native_asset_id_\d+##/gm, '');
+    html = html.replaceAll(/##oa_native_asset_id_\d+##/gm, '');
 
     if (ortb.privacy) {
-      html = html.replaceAll("##hb_native_privacy##", ortb.privacy);
+      html = html.replaceAll("##oa_native_privacy##", ortb.privacy);
     }
 
     if (ortb.link) {
-      html = html.replaceAll("##hb_native_linkurl##", ortb.link.url);
+      html = html.replaceAll("##oa_native_linkurl##", ortb.link.url);
     }
 
     return html;
