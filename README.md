@@ -11,15 +11,7 @@ OpenAds Universal Creative is a javascript api to render multiple formats. This 
 
 You can find a detailed explanations on the [Prebid Universal Creative](https://docs.prebid.org/overview/prebid-universal-creative.html) and [AdOps - Add Creative](https://docs.prebid.org/adops/setting-up-prebid-with-the-appnexus-ad-server.html#step-3-add-creatives) pages.
 
-### File Selection for Different Platforms
-
-**Generic template:**
-```html
-<script src = "https://openads-cdn.adsrvr.org/openads-universal-creative/build/latest/PUCFILE"></script>
-```
-
-**Replace "PUCFILE" with:**
-- **OpenAds.js**: `%%PATTERN:oa_format%%.js` - This dynamically loads the appropriate creative file based on the ad format
+### OpenAds.js
 
 > **Important Note about File Compatibility:**
 > - `creative.js` is more general and **will work for desktop**
@@ -63,7 +55,7 @@ Universal creative library is loaded with `%%PATTERN:oa_format%%.js` path. For e
 For the "Send All Bids" scenario, use this template:
 
 ```html
-<script src = "https://openads-cdn.adsrvr.org/openads-universal-creative/build/latest/PUCFILE"></script>
+<script src = "https://openads-cdn.adsrvr.org/openads-universal-creative/build/latest/%%PATTERN:oa_format%%.js"></script>
 <script>
   var ucTagData = {};
   ucTagData.adServerDomain = "";
@@ -90,7 +82,7 @@ For the "Send All Bids" scenario, use this template:
 </script>
 ```
 
-Replace "PUCFILE" as described above. Note the use of `BIDDERCODE` suffix in the targeting patterns, this implies that each bidder has separate line items with bidder-specific keyword targeting.
+Note the use of `BIDDERCODE` suffix in the targeting patterns, this implies that each bidder has separate line items with bidder-specific keyword targeting.
 
 ## Install
 
