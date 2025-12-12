@@ -11,15 +11,7 @@ OpenAds Universal Creative is a javascript api to render multiple formats. This 
 
 You can find a detailed explanations on the [Prebid Universal Creative](https://docs.prebid.org/overview/prebid-universal-creative.html) and [AdOps - Add Creative](https://docs.prebid.org/adops/setting-up-prebid-with-the-appnexus-ad-server.html#step-3-add-creatives) pages.
 
-### File Selection for Different Platforms
-
-**Generic template:**
-```html
-<script src = "https://openads-cdn.adsrvr.org/openads-universal-creative/build/latest/PUCFILE"></script>
-```
-
-**Replace "PUCFILE" with:**
-- **OpenAds.js**: `%%PATTERN:hb_format%%.js` - This dynamically loads the appropriate creative file based on the ad format
+### OpenAds.js
 
 > **Important Note about File Compatibility:**
 > - `creative.js` is more general and **will work for desktop**
@@ -27,15 +19,15 @@ You can find a detailed explanations on the [Prebid Universal Creative](https://
 
 **Example for OpenAds.js (Desktop/Web):**
 ```html
-<script src = "https://openads-cdn.adsrvr.org/openads-universal-creative/build/latest/%%PATTERN:hb_format%%.js"></script>
+<script src = "https://openads-cdn.adsrvr.org/openads-universal-creative/build/latest/%%PATTERN:oa_format%%.js"></script>
 <script>
   var ucTagData = {};
   ucTagData.adServerDomain = "";
   ucTagData.pubUrl = "%%PATTERN:url%%";
   ucTagData.targetingMap = %%PATTERN:TARGETINGMAP%%;
-  ucTagData.hbPb = "%%PATTERN:hb_pb%%";
-  ucTagData.hbFormat = "%%PATTERN:hb_format%%";
-  ucTagData.adId = "%%PATTERN:hb_adid%%";
+  ucTagData.hbPb = "%%PATTERN:oa_pb%%";
+  ucTagData.hbFormat = "%%PATTERN:oa_format%%";
+  ucTagData.adId = "%%PATTERN:oa_adid%%";
   // if you're using GAM and want to track outbound clicks on native ads you can add this line
   ucTagData.clickUrlUnesc = "%%CLICK_URL_UNESC%%";
   ucTagData.requestAllAssets = true;
@@ -54,7 +46,7 @@ Creative created like described above will work for the following formats:
 - native
 - video (outstream video)
 
-Universal creative library is loaded with `%%PATTERN:hb_format%%.js` path. For each `hb_format` targeting key-value, separate `.js` library will be loaded.  Which means that the same creative code can be reused for any format.
+Universal creative library is loaded with `%%PATTERN:oa_format%%.js` path. For each `oa_format` targeting key-value, separate `.js` library will be loaded.  Which means that the same creative code can be reused for any format.
 
 > **important:** If you’re using the `Send All Bids` scenario (where every bidder has a separate order), the creative and targeting will be different from the example shown here. See [Send All Bids](https://docs.prebid.org/adops/send-all-vs-top-price.html#send-all-bids) for details and an example below.
 
@@ -63,21 +55,21 @@ Universal creative library is loaded with `%%PATTERN:hb_format%%.js` path. For e
 For the "Send All Bids" scenario, use this template:
 
 ```html
-<script src = "https://openads-cdn.adsrvr.org/openads-universal-creative/build/latest/PUCFILE"></script>
+<script src = "https://openads-cdn.adsrvr.org/openads-universal-creative/build/latest/%%PATTERN:oa_format%%.js"></script>
 <script>
   var ucTagData = {};
   ucTagData.adServerDomain = "";
   ucTagData.pubUrl = "%%PATTERN:url%%";
-  ucTagData.adId = "%%PATTERN:hb_adid_BIDDERCODE%%";
-  ucTagData.cacheHost = "%%PATTERN:hb_cache_host_BIDDERCODE%%";
-  ucTagData.cachePath = "%%PATTERN:hb_cache_path_BIDDERCODE%%";
-  ucTagData.uuid = "%%PATTERN:hb_cache_id_BIDDERCODE%%";
-  ucTagData.mediaType = "%%PATTERN:hb_format_BIDDERCODE%%";
-  ucTagData.env = "%%PATTERN:hb_env%%";
-  ucTagData.size = "%%PATTERN:hb_size_BIDDERCODE%%";
-  ucTagData.hbPb = "%%PATTERN:hb_pb_BIDDERCODE%%";
+  ucTagData.adId = "%%PATTERN:oa_adid_BIDDERCODE%%";
+  ucTagData.cacheHost = "%%PATTERN:oa_cache_host_BIDDERCODE%%";
+  ucTagData.cachePath = "%%PATTERN:oa_cache_path_BIDDERCODE%%";
+  ucTagData.uuid = "%%PATTERN:oa_cache_id_BIDDERCODE%%";
+  ucTagData.mediaType = "%%PATTERN:oa_format_BIDDERCODE%%";
+  ucTagData.env = "%%PATTERN:oa_env%%";
+  ucTagData.size = "%%PATTERN:oa_size_BIDDERCODE%%";
+  ucTagData.hbPb = "%%PATTERN:oa_pb_BIDDERCODE%%";
   // mobileResize needed for mobile GAM only
-  ucTagData.mobileResize = "hb_size:%%PATTERN:hb_size_BIDDERCODE%%";
+  ucTagData.mobileResize = "oa_size:%%PATTERN:oa_size_BIDDERCODE%%";
   // these next two are only needed for native creatives but are ok for banner
   ucTagData.requestAllAssets = true;
   ucTagData.clickUrlUnesc = "%%CLICK_URL_UNESC%%";
@@ -90,7 +82,7 @@ For the "Send All Bids" scenario, use this template:
 </script>
 ```
 
-Replace "PUCFILE" as described above. Note the use of `BIDDERCODE` suffix in the targeting patterns, this implies that each bidder has separate line items with bidder-specific keyword targeting.
+Note the use of `BIDDERCODE` suffix in the targeting patterns, this implies that each bidder has separate line items with bidder-specific keyword targeting.
 
 ## Install
 
